@@ -1,0 +1,37 @@
+<template>
+    <div id="page-wrap">
+        <ProductsGrid :products="products"/>
+    </div>
+</template>
+
+<script>
+import axios from 'axios';
+import ProductsGrid from '../components/ProductsGrid.vue';
+
+export default {
+    name: 'ProductsPage',
+    components: {
+      ProductsGrid,
+    },
+    data() {
+      return {
+        products: [],
+      };
+    },
+    async created() {
+      const result = await axios.get('/api/products');
+      const products = result.data;
+      this.products = products;
+    }
+};
+</script>
+
+
+<style scoped>
+    .grid-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 16px;
+    }
+</style>
